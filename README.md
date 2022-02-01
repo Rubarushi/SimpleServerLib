@@ -25,7 +25,7 @@ public class Client : IClient
 ## UDP
 ```cs
 var proc = new UdpProcessior();
-UdpServer udpServer = new UdpServer(proc.Process, 444);
+UdpServer udpServer = new UdpServer(proc.Process, 444, -1, null);
     
 public class UdpProcessior : IUdpClient
 {
