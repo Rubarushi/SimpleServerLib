@@ -39,19 +39,16 @@ namespace ServerLib
 
         private void ReceiveDone(IAsyncResult ar)
         {
-            //while (!IsStopped)
+            IPEndPoint e = (IPEndPoint)ar.AsyncState;
+            byte[] data = Client.EndReceive(ar, ref e);
+
+            if (m_iNeedLength > 0 && m_iNeedLength < data.Length)
             {
-                IPEndPoint e = (IPEndPoint)ar.AsyncState;
-                byte[] data = Client.EndReceive(ar, ref e);
-
-                if (m_iNeedLength > 0 && m_iNeedLength < data.Length)
-                {
-                    continue;
-                }
-                Process.Invoke(data, e);
-                Client.BeginReceive(ReceiveDone, null)
-
+                Client.BeginReceive(ReceiveDone, null);
+                return;
             }
+            Process.Invoke(data, e);
+            Client.BeginReceive(ReceiveDone, null);
         }
 
         public void StopUDP()
