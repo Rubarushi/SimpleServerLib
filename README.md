@@ -29,7 +29,7 @@ UdpServer udpServer = new UdpServer(proc.Process, 444, -1, () => Console.WriteLi
     
 public class UdpProcessior : IUdpClient
 {
-    public void Process(byte[] mBuffer)
+    public void Process(byte[] mBuffer, IPEndPoint e)
     {
         //Add Process what you need
     }
