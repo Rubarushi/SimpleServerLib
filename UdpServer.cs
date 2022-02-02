@@ -8,14 +8,14 @@ namespace ServerLib
     public class UdpServer
     {
         public UdpClient Client;
-        private Action<byte[]> Process = null;
+        private Action<byte[], IPEndPoint> Process = null;
         private int m_iNeedLength = -1;
 
         private Thread Worker = null;
 
         private volatile bool IsStopped = false;
 
-        public UdpServer(Action<byte[]> Processor, int port, int needLength = -1, Action MessageFunc = null)
+        public UdpServer(Action<byte[], IPEndPoint> Processor, int port, int needLength = -1, Action MessageFunc = null)
         {
             if (Equals(Processor, null))
             {
@@ -48,7 +48,7 @@ namespace ServerLib
                 {
                     continue;
                 }
-                Process.Invoke(data);
+                Process.Invoke(data, e);
             }
         }
 
