@@ -39,7 +39,7 @@ namespace ServerLib
 
         private void ReceiveDone(IAsyncResult ar)
         {
-            while (!IsStopped)
+            //while (!IsStopped)
             {
                 IPEndPoint e = (IPEndPoint)ar.AsyncState;
                 byte[] data = Client.EndReceive(ar, ref e);
@@ -49,6 +49,8 @@ namespace ServerLib
                     continue;
                 }
                 Process.Invoke(data, e);
+                Client.BeginReceive(ReceiveDone, null)
+
             }
         }
 
