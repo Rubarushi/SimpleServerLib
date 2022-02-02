@@ -25,7 +25,7 @@ public class Client : IClient
 ## UDP
 ```cs
 var proc = new UdpProcessior();
-UdpServer udpServer = new UdpServer(proc.Process, 444, -1, null);
+UdpServer udpServer = new UdpServer(proc.Process, 444, -1, () => Console.WriteLine("New UdpServer is Working on port:444"));
     
 public class UdpProcessior : IUdpClient
 {
